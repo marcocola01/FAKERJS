@@ -3,58 +3,20 @@ var express = require('express');
 var router = express.Router();
 var faker = require('faker');
 let vett = new Array();
+const fs = require('fs');
+const poeti = require('../vettPoeti');
 
 
 router.get('/', function(req, res, next) {
  res.send(createFakePerson());
 });
 
-router.get('/poeti', function(req, res, next) {
-for (let index = 0; index < 10; index++){
-    vett.push(createFakePerson());
-}
-res.send(vett);
+router.get('/poeti', (req, res) => {
+const r = poeti.find(p => p.id == req.query.id);
+console.log(r);
+res.render('profile', {title: `About $(r.nome)`, r}); 
 });
 
-router.get('/1', function(req, res, next){
-res.send(vett[1]);
-});
-
-router.get('/2', function(req, res, next){
-res.send(vett[2]);
-});
-
-router.get('/3', function(req, res, next){
-res.send(vett[3]);
-});
-
-router.get('/4', function(req, res, next){
-res.send(vett[4]);
-});
-
-router.get('/5', function(req, res, next){
-res.send(vett[5]);
-});
-
-router.get('/6', function(req, res, next){
-res.send(vett[6]);
-});
-
-router.get('/7', function(req, res, next){
-res.send(vett[7]);
-});
-
-router.get('/8', function(req, res, next){
-res.send(vett[8]);
-});
-
-router.get('/9', function(req, res, next){
-res.send(vett[9]);
-})
-
-router.get('/10', function(req, res, next){
-res.send(vett[10]);
-});
 
 function createFakePerson()
 {
